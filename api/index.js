@@ -15,8 +15,11 @@ import cookieParser from "cookie-parser";
 import path from "path";
 
 dotenv.config();
+const url =
+  process.env.MONGO_URI ||
+  "mongodb+srv://ianupam001:BYBc8JEavX2LDY5K@cluster0.8bnifxi.mongodb.net/blogs-app?retryWrites=true&w=majority&appName=Cluster0";
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(url)
   .then(() => {
     console.log("MongoDb is connected");
   })
