@@ -13,7 +13,7 @@ import inquiryRoutes from "./routes/inquiry.route.js";
 import testimonialRoutes from "./routes/testimonial.route.js";
 import cookieParser from "cookie-parser";
 import path from "path";
-
+import cors from "cors";
 dotenv.config();
 const url =
   process.env.MONGO_URI ||
@@ -30,6 +30,8 @@ mongoose
 const __dirname = path.resolve();
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 app.use(cookieParser());
