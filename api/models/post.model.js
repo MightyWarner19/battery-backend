@@ -29,6 +29,22 @@ const postSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    meta_title: {
+      type: String,
+      required: false,
+    },
+    meta_description: {
+      type: String,
+      required: false,
+    },
+    meta_keyword: {
+      type: String,
+      required: false,
+    },
+    other_meta_tag: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: true }
 );
