@@ -2,7 +2,6 @@ import Inquiry from "../models/inquiry.model.js";
 import { errorHandler } from "../utils/error.js";
 
 export const create = async (req, res, next) => {
-  console.log(req.body);
   if (!req.body.name) {
     return next(errorHandler(400, "Please provide all required fields"));
   }
@@ -23,16 +22,16 @@ export const getinquirys = async (req, res, next) => {
     console.log(req);
     const startIndex = parseInt(req.query.startIndex) || 0;
     const limit = parseInt(req.query.limit) || 9;
-    const sortDirection = req.query.order === 'asc' ? 1 : -1;
+    const sortDirection = req.query.order === "asc" ? 1 : -1;
 
     // Fetch inquiries based on optional filters
     const inquiries = await Inquiry.find({
       ...(req.query.name && { name: req.query.name }),
       ...(req.query.searchTerm && {
         $or: [
-          { name: { $regex: req.query.searchTerm, $options: 'i' } },
-          { subject: { $regex: req.query.searchTerm, $options: 'i' } },
-          { message: { $regex: req.query.searchTerm, $options: 'i' } },
+          { name: { $regex: req.query.searchTerm, $options: "i" } },
+          { subject: { $regex: req.query.searchTerm, $options: "i" } },
+          { message: { $regex: req.query.searchTerm, $options: "i" } },
         ],
       }),
     })
@@ -41,10 +40,14 @@ export const getinquirys = async (req, res, next) => {
       .limit(limit);
 
     const totalInquirys = await Inquiry.countDocuments();
-    
+
     // Calculate inquiries from the last month
     const now = new Date();
-    const oneMonthAgo = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+    const oneMonthAgo = new Date(
+      now.getFullYear(),
+      now.getMonth() - 1,
+      now.getDate()
+    );
     const lastMonthInquirys = await Inquiry.countDocuments({
       createdAt: { $gte: oneMonthAgo },
     });

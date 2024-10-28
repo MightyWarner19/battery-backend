@@ -11,6 +11,7 @@ import sliderRoutes from "./routes/slider.route.js";
 import brandRoutes from "./routes/brand.route.js";
 import inquiryRoutes from "./routes/inquiry.route.js";
 import testimonialRoutes from "./routes/testimonial.route.js";
+import formsRoute from "./routes/forms.route.js";
 import cookieParser from "cookie-parser";
 import path from "path";
 import cors from "cors";
@@ -49,8 +50,9 @@ app.use("/api/service", serviceRoutes);
 app.use("/api/comment", commentRoutes);
 app.use("/api/slider", sliderRoutes);
 app.use("/api/brand", brandRoutes);
-app.use("/api/inquiry", inquiryRoutes);
+app.use("/api/inquery", inquiryRoutes);
 app.use("/api/testimonial", testimonialRoutes);
+app.use("/api/forms", formsRoute);
 
 app.use(express.static(path.join(__dirname, "/client/dist")));
 
