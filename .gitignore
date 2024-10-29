@@ -12,7 +12,7 @@ dist
 dist-ssr
 *.local
 dump
-.env
+
 
 # Editor directories and files
 .vscode/*
@@ -24,3 +24,4 @@ dump
 *.njsproj
 *.sln
 *.sw?
+*.env
