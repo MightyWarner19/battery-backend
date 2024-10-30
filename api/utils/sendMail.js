@@ -3,13 +3,13 @@ import hbs from "nodemailer-express-handlebars";
 import path from "path";
 import { fileURLToPath } from "url";
 
-const emailUser = process.env.EMAIL_USER || "anupamtiwari8090@gmail.com";
-const passUser = process.env.EMAIL_PASS || "xiag gsfh uxaz idpz";
+const emailUser = process.env.EMAIL_USER || "support@800bbattery.com";
+const passUser = process.env.EMAIL_PASS || "midl ojmm llwn jlgs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const adminEmail = process.env.EMAIL_USER || "anupamtiwari8090@gmail.com";
+const adminEmail = process.env.EMAIL_USER || "support@800bbattery.com";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -39,7 +39,7 @@ const sendEmail = async (formData) => {
     subject: "New Form Submission",
     template: "formSubmission",
     context: {
-      formData,
+      ...formData,
     },
   };
 

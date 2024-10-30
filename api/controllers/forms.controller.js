@@ -10,6 +10,7 @@ export const createHomepageForm = async (req, res, next) => {
     const newForm = new HomepageForm(req.body);
     await newForm.save();
     res.status(200).json(newForm);
+    console.log(req.body);
     sendEmail(req.body);
   } catch (error) {
     next(error);
