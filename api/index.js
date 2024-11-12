@@ -51,7 +51,7 @@ app.use("/api/service", serviceRoutes);
 app.use("/api/comment", commentRoutes);
 app.use("/api/slider", sliderRoutes);
 app.use("/api/brand", brandRoutes);
-app.use("/api/inquery", inquiryRoutes);
+app.use("/api/inquiry", inquiryRoutes);
 app.use("/api/testimonial", testimonialRoutes);
 app.use("/api/forms", formsRoute);
 app.use("/api/metatags", metatagsRoutes);

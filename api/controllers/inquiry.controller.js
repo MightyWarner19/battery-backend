@@ -17,14 +17,12 @@ export const create = async (req, res, next) => {
   }
 };
 
-export const getinquirys = async (req, res, next) => {
+export const getInquiries = async (req, res, next) => {
   try {
-    console.log(req);
     const startIndex = parseInt(req.query.startIndex) || 0;
     const limit = parseInt(req.query.limit) || 9;
     const sortDirection = req.query.order === "asc" ? 1 : -1;
 
-    // Fetch inquiries based on optional filters
     const inquiries = await Inquiry.find({
       ...(req.query.name && { name: req.query.name }),
       ...(req.query.searchTerm && {
@@ -39,25 +37,41 @@ export const getinquirys = async (req, res, next) => {
       .skip(startIndex)
       .limit(limit);
 
-    const totalInquirys = await Inquiry.countDocuments();
+    const totalInquiries = await Inquiry.countDocuments();
 
-    // Calculate inquiries from the last month
     const now = new Date();
     const oneMonthAgo = new Date(
       now.getFullYear(),
       now.getMonth() - 1,
       now.getDate()
     );
-    const lastMonthInquirys = await Inquiry.countDocuments({
+    const lastMonthInquiries = await Inquiry.countDocuments({
       createdAt: { $gte: oneMonthAgo },
     });
 
     res.status(200).json({
-      inquiries, // Return the inquiries
-      totalInquirys, // Total count of inquiries
-      lastMonthInquirys, // Count of inquiries in the last month
+      inquiries,
+      totalInquiries,
+      lastMonthInquiries,
     });
   } catch (error) {
-    next(error); // Pass the error to the next middleware
+    next(error);
+  }
+};
+
+export const deleteInquiry = async (req, res, next) => {
+  try {
+    const inquiryId = req.params.inquiryId;
+
+    const inquiry = await Inquiry.findById(inquiryId);
+    if (!inquiry) {
+      return next(errorHandler(404, "Inquiry not found"));
+    }
+
+    await Inquiry.findByIdAndDelete(inquiryId);
+
+    res.status(200).json({ message: "Inquiry deleted successfully" });
+  } catch (error) {
+    next(error);
   }
 };
