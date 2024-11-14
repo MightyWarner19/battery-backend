@@ -11,14 +11,14 @@ import {
 
 const router = express.Router();
 
-router.post("/:type", verifyToken, createMetaTag);
+router.post("/:type", createMetaTag);
 
-router.get("/:type", verifyToken, getAllMetaTags);
+router.get("/:type", getAllMetaTags);
 
-router.get("/:type/:id", verifyToken, getMetaTagById);
+router.get("/:type/:id", getMetaTagById);
 
-router.put("/:type/:id", verifyToken, updateMetaTag);
+router.put("/:type/:id", updateMetaTag);
 
-router.delete("/:type/:id", verifyToken, deleteMetaTag);
+router.delete("/:type/:id", deleteMetaTag);
 
 export default router;
