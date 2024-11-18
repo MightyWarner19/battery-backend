@@ -1,19 +1,20 @@
-import Product from '../models/product.model.js';
-import { errorHandler } from '../utils/error.js';
+import Product from "../models/product.model.js";
+import { errorHandler } from "../utils/error.js";
+
 
 export const create = async (req, res, next) => {
-    console.log('asdf');
+  console.log("asdf");
   if (!req.user.isAdmin) {
-    return next(errorHandler(403, 'You are not allowed to create a product'));
+    return next(errorHandler(403, "You are not allowed to create a product"));
   }
   if (!req.body.title || !req.body.content) {
-    return next(errorHandler(400, 'Please provide all required fields'));
+    return next(errorHandler(400, "Please provide all required fields"));
   }
   const slug = req.body.title
-    .split(' ')
-    .join('-')
+    .split(" ")
+    .join("-")
     .toLowerCase()
-    .replace(/[^a-zA-Z0-9-]/g, '');
+    .replace(/[^a-zA-Z0-9-]/g, "");
   const newProduct = new Product({
     ...req.body,
     slug,
@@ -31,7 +32,7 @@ export const getproducts = async (req, res, next) => {
   try {
     const startIndex = parseInt(req.query.startIndex) || 0;
     const limit = parseInt(req.query.limit) || 9;
-    const sortDirection = req.query.order === 'asc' ? 1 : -1;
+    const sortDirection = req.query.order === "asc" ? 1 : -1;
     const products = await Product.find({
       ...(req.query.userId && { userId: req.query.userId }),
       ...(req.query.category && { category: req.query.category }),
@@ -39,8 +40,8 @@ export const getproducts = async (req, res, next) => {
       ...(req.query.productId && { _id: req.query.productId }),
       ...(req.query.searchTerm && {
         $or: [
-          { title: { $regex: req.query.searchTerm, $options: 'i' } },
-          { content: { $regex: req.query.searchTerm, $options: 'i' } },
+          { title: { $regex: req.query.searchTerm, $options: "i" } },
+          { content: { $regex: req.query.searchTerm, $options: "i" } },
         ],
       }),
     })
@@ -63,7 +64,7 @@ export const getproducts = async (req, res, next) => {
     });
 
     res.status(200).json({
-        products,
+      products,
       totalProducts,
       lastMonthProducts,
     });
@@ -74,11 +75,13 @@ export const getproducts = async (req, res, next) => {
 
 export const deleteproduct = async (req, res, next) => {
   if (!req.user.isAdmin || req.user.id !== req.params.userId) {
-    return next(errorHandler(403, 'You are not allowed to delete this product'));
+    return next(
+      errorHandler(403, "You are not allowed to delete this product")
+    );
   }
   try {
     await Product.findByIdAndDelete(req.params.productId);
-    res.status(200).json('The product has been deleted');
+    res.status(200).json("The product has been deleted");
   } catch (error) {
     next(error);
   }
@@ -86,7 +89,9 @@ export const deleteproduct = async (req, res, next) => {
 
 export const updateproduct = async (req, res, next) => {
   if (!req.user.isAdmin || req.user.id !== req.params.userId) {
-    return next(errorHandler(403, 'You are not allowed to update this product'));
+    return next(
+      errorHandler(403, "You are not allowed to update this product")
+    );
   }
   try {
     const updatedProduct = await Product.findByIdAndUpdate(
@@ -97,6 +102,10 @@ export const updateproduct = async (req, res, next) => {
           content: req.body.content,
           category: req.body.category,
           image: req.body.image,
+          metaTitle: req.body.metaTitle,
+          metaDescription: req.body.metaDescription,
+          metaKeywords: req.body.metaKeywords,
+          otherMeta: req.body.otherMeta,
         },
       },
       { new: true }

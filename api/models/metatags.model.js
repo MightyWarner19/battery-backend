@@ -58,7 +58,10 @@ const ContactMetaTagsSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const ContactMetaTags = mongoose.model("ContactMetaTags", AboutMetaTagsSchema);
+const ContactMetaTags = mongoose.model(
+  "ContactMetaTags",
+  ContactMetaTagsSchema
+);
 
 const BlogMetaTagSchema = new mongoose.Schema(
   {

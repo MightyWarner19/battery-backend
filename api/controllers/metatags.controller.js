@@ -51,7 +51,6 @@ export const getLatestMetaTag = async (req, res) => {
     if (!latestMetaTag) {
       return res.status(404).json({ message: "No meta tags found" });
     }
-
     res.status(200).json(latestMetaTag);
   } catch (error) {
     res.status(400).json({ message: error.message });
