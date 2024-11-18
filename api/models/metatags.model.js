@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const serviceMetaTagSchema = new mongoose.Schema(
+const homeMetaTagSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -18,9 +18,9 @@ const serviceMetaTagSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const ServiceMetaTags = mongoose.model("ServiceMetatags", serviceMetaTagSchema);
+const HomeMetaTags = mongoose.model("HomeMetaTags", homeMetaTagSchema);
 
-const ProductMetaTagSchema = new mongoose.Schema(
+const AboutMetaTagsSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -38,7 +38,27 @@ const ProductMetaTagSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const ProductMetaTags = mongoose.model("ProductMetatags", ProductMetaTagSchema);
+const AboutMetaTags = mongoose.model("AboutMetaTags", AboutMetaTagsSchema);
+
+const ContactMetaTagsSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+    },
+    description: {
+      type: String,
+    },
+    keywords: {
+      type: String,
+    },
+    other: {
+      type: String,
+    },
+  },
+  { timestamps: true }
+);
+
+const ContactMetaTags = mongoose.model("ContactMetaTags", AboutMetaTagsSchema);
 
 const BlogMetaTagSchema = new mongoose.Schema(
   {
@@ -75,29 +95,10 @@ const OtherMetaTagSchema = new mongoose.Schema(
 );
 const OtherMetaTags = mongoose.model("OtherMetatags", OtherMetaTagSchema);
 
-const CommonMetaTagsSchema = new mongoose.Schema(
-  {
-    title: {
-      type: String,
-    },
-    description: {
-      type: String,
-    },
-    keywords: {
-      type: String,
-    },
-    other: {
-      type: String,
-    },
-  },
-  { timestamps: true }
-);
-const CommonMetaTags = mongoose.model("CommonMetaTags", CommonMetaTagsSchema);
-
 export {
-  ServiceMetaTags,
-  ProductMetaTags,
+  HomeMetaTags,
+  AboutMetaTags,
+  ContactMetaTags,
   BlogMetaTags,
   OtherMetaTags,
-  CommonMetaTags,
 };

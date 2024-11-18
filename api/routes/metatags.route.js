@@ -3,7 +3,7 @@ import express from "express";
 import { verifyToken } from "../utils/verifyUser.js";
 import {
   createMetaTag,
-  getAllMetaTags,
+  getLatestMetaTag,
   getMetaTagById,
   updateMetaTag,
   deleteMetaTag,
@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.post("/:type", createMetaTag);
 
-router.get("/:type", getAllMetaTags);
+router.get("/:type", getLatestMetaTag);
 
 router.get("/:type/:id", getMetaTagById);
 

@@ -1,23 +1,23 @@
 import {
-  ServiceMetaTags,
-  ProductMetaTags,
+  HomeMetaTags,
+  AboutMetaTags,
+  ContactMetaTags,
   BlogMetaTags,
   OtherMetaTags,
-  CommonMetaTags,
 } from "../models/metatags.model.js";
 
 const getModelByType = (type) => {
   switch (type) {
-    case "service":
-      return ServiceMetaTags;
-    case "product":
-      return ProductMetaTags;
+    case "home":
+      return HomeMetaTags;
+    case "about":
+      return AboutMetaTags;
+    case "contact":
+      return ContactMetaTags;
     case "blog":
       return BlogMetaTags;
-    case "other":
+    case "otherMeta":
       return OtherMetaTags;
-    case "common":
-      return CommonMetaTags;
     default:
       throw new Error("Invalid type");
   }
@@ -34,11 +34,25 @@ export const createMetaTag = async (req, res) => {
   }
 };
 
-export const getAllMetaTags = async (req, res) => {
+// export const getAllMetaTags = async (req, res) => {
+//   try {
+//     const Model = getModelByType(req.params.type);
+//     const metaTags = await Model.find();
+//     res.status(200).json(metaTags);
+//   } catch (error) {
+//     res.status(400).json({ message: error.message });
+//   }
+// };
+export const getLatestMetaTag = async (req, res) => {
   try {
     const Model = getModelByType(req.params.type);
-    const metaTags = await Model.find();
-    res.status(200).json(metaTags);
+    const latestMetaTag = await Model.findOne().sort({ createdAt: -1 });
+
+    if (!latestMetaTag) {
+      return res.status(404).json({ message: "No meta tags found" });
+    }
+
+    res.status(200).json(latestMetaTag);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
