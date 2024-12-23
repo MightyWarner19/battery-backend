@@ -38,9 +38,9 @@ app.use(cors());
 
 app.use(express.json());
 app.use(cookieParser());
-
-app.listen(4001, () => {
-  console.log("Server is running on port 3001!");
+const port = 4001
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}!`);
 });
 
 app.use("/api/user", userRoutes);
