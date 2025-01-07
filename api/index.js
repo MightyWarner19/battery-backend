@@ -13,6 +13,7 @@ import inquiryRoutes from "./routes/inquiry.route.js";
 import testimonialRoutes from "./routes/testimonial.route.js";
 import metatagsRoutes from "./routes/metatags.route.js";
 import formsRoute from "./routes/forms.route.js";
+import oilFormRoutes from "./routes/oilForm.route.js";
 import cookieParser from "cookie-parser";
 import path from "path";
 import cors from "cors";
@@ -38,7 +39,7 @@ app.use(cors());
 
 app.use(express.json());
 app.use(cookieParser());
-const port = 4001
+const port = 4001;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}!`);
 });
@@ -55,6 +56,7 @@ app.use("/api/inquiry", inquiryRoutes);
 app.use("/api/testimonial", testimonialRoutes);
 app.use("/api/forms", formsRoute);
 app.use("/api/metatags", metatagsRoutes);
+app.use("/api/oilForm", oilFormRoutes);
 
 app.use(express.static(path.join(__dirname, "/client/dist")));
 
