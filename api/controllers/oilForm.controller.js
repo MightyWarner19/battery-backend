@@ -1,24 +1,33 @@
-import OilForm  from "../models/oilForm.model.js";
+import OilForm from "../models/oilForm.model.js";
+import sendEmail from "../utils/sendMail.js";
 export const createOilForm = async (req, res, next) => {
   try {
     const newForm = new OilForm(req.body);
     await newForm.save();
     res.status(200).json(newForm);
-    console.log(req.body);
-    sendEmail(req.body);
+    await sendEmail(req.body);
   } catch (error) {
     next(error);
   }
 };
 
-export const getOilFormData=async()=>{
-  try{
-
-  }catch(err){
-    
+export const getOilFormData = async (req, res, next) => {
+  try {
+    const data = await OilForm.find({}).sort({ createdAt: -1 });
+    res.status(200).json(data);
+  } catch (err) {
+    next(err);
   }
-}
+};
 
-export const sendEmail = (data) => {};
-
-//{baseUrl}/api/oilForm/create/oil-form
+export const deleteOilForm = async (req, res, next) => {
+  try {
+    const data = await OilForm.findByIdAndDelete(req.params.id);
+    res.status(200).json({
+      message: "Oil form deleted successfully",
+      data: data,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
