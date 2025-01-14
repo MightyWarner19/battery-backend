@@ -35,7 +35,7 @@ transporter.use(
 const sendEmail = async (formData) => {
   const mailOptions = {
     from: process.env.EMAIL_USER,
-    to: adminEmail,
+    to: `${adminEmail}, ads.pentacodes@gmail.com`,
     subject: "New Form Submission",
     template: "formSubmission",
     context: {
